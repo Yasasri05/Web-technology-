@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kids All-in-One Web App</title>
+    <style>
+        /* CSS Section */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FF9800;
+            --accent-color: #9C27B0;
+            --light-color: #F5F5F5;
+            --dark-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+        
+        body {
+            background-image: url('bg.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--dark-color);
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 1rem 2rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 0.2rem;
+            border-radius: 10px 10px 0 0;
+            transition: all 0.3s;
+        }
+        
+        .tab-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        .tab-button.active {
+            background-color: var(--accent-color);
+        }
+        
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0 10px 10px 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section-title {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .module-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+        
+        .module-card:hover {
+            transform: scale(1.05);
+            border-color: var(--secondary-color);
+        }
+        
+        .module-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+        
+        .module-description {
+            color: #666;
+        }
+        
+        /* Drawing board styles */
+        #drawing-board {
+            border: 3px solid var(--secondary-color);
+            border-radius: 10px;
+            background-color: white;
+            cursor: crosshair;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .drawing-tools {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .tool-button {
+            padding: 0.5rem 1rem;
+            margin: 0.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        /* Parental controls */
+        .parental-controls {
+            background-color: #f8f8f8;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .control-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        
+        button[type="submit"] {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-button {
+                padding: 0.8rem 1rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Animal decorations */
+        .animal-decoration {
+            position: fixed;
+            z-index: -1;
+        }
+        
+        .giraffe-left {
+            left: 20px;
+            bottom: 20px;
+            height: 470px;
+        }
+        
+        .giraffe-right {
+            right: 20px;
+            bottom: 20px;
+            height: 470px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animal decorations -->
+    <img src="giraffe.jpg" class="animal-decoration giraffe-left" alt="Giraffe " width="300"  >
+    <img src="giraffe.jpg" class="animal-decoration giraffe-right" alt="Giraffe" width="300">
+
+    <header>
+        <h1>Kids All-in-One Learning Platform</h1>
+        <p>Where learning meets fun!</p>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="openTab('learning')">Learning</button>
+            <button class="tab-button" onclick="openTab('entertainment')">Entertainment</button>
+            <button class="tab-button" onclick="openTab('creativity')">Creativity</button>
+            <button class="tab-button" onclick="openTab('games')">Games</button>
+            <button class="tab-button" onclick="openTab('wellness')">Wellness</button>
+            <button class="tab-button" onclick="openTab('parental')">Parental Controls</button>
+        </div>
+
+        <!-- Learning Tab -->
+        <div id="learning" class="tab-content active">
+            <h2 class="section-title">Interactive Learning Modules</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="openModule('math')">
+                    <div class="module-icon">🧮</div>
+                    <h3 class="module-title">Math Adventures</h3>
+                    <p class="module-description">Learn numbers, addition, and subtraction with fun animated characters!</p>
+                </div>
+                <div class="module-card" onclick="openModule('science')">
+                    <div class="module-icon">🔬</div>
+                    <h3 class="module-title">Science Explorers</h3>
+                    <p class="module-description">Discover the wonders of nature and simple scientific concepts.</p>
+                </div>
+                <div class="module-card" onclick="openModule('language')">
+                    <div class="module-icon">📚</div>
+                    <h3 class="module-title">Language Fun</h3>
+                    <p class="module-description">Learn letters, words, and pronunciation with our AI helper.</p>
+                </div>
+                <div class="module-card" onclick="openModule('quizzes')">
+                    <div class="module-icon">🏆</div>
+                    <h3 class="module-title">Quizzes & Rewards</h3>
+                    <p class="module-description">Test your knowledge and earn fun badges and stars!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entertainment Tab -->
+        <div id="entertainment" class="tab-content">
+            <h2 class="section-title">Entertainment Zone</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="playVideo('cartoons')">
+                    <div class="module-icon">📺</div>
+                    <h3 class="module-title">Cartoons</h3>
+                    <p class="module-description">Fun and educational animated shows.</p>
+                </div>
+                <div class="module-card" onclick="playVideo('stories')">
+                    <div class="module-icon">🌙</div>
+                    <h3 class="module-title">Bedtime Stories</h3>
+                    <p class="module-description">Calming stories with beautiful visuals.</p>
+                </div>
+                <div class="module-card" onclick="playVideo('songs')">
+                    <div class="module-icon">🎵</div>
+                    <h3 class="module-title">Sing-Along Songs</h3>
+                    <p class="module-description">Nursery rhymes and phonics songs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creativity Tab -->
+        <div id="creativity" class="tab-content">
+            <h2 class="section-title">Creativity Hub</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="openDrawingBoard()">
+                    <div class="module-icon">🎨</div>
+                    <h3 class="module-title">Drawing Board</h3>
+                    <p class="module-description">Create digital art with animal stickers!</p>
+                </div>
+                <div class="module-card" onclick="openStoryMaker()">
+                    <div class="module-icon">📖</div>
+                    <h3 class="module-title">Story Maker</h3>
+                    <p class="module-description">Create your own stories with drag-and-drop characters.</p>
+                </div>
+                <div class="module-card" onclick="playVideo('crafts')">
+                    <div class="module-icon">✂️</div>
+                    <h3 class="module-title">DIY Crafts</h3>
+                    <p class="module-description">Step-by-step craft tutorials.</p>
+                </div>
+            </div>
+            
+            <!-- Drawing Board (hidden by default) -->
+            <div id="drawing-container" style="display: none;">
+                <h3>Drawing Board</h3>
+                <canvas id="drawing-board" width="800" height="500"></canvas>
+                <div class="drawing-tools">
+                    <button class="tool-button" onclick="setTool('pencil')">✏️ Pencil</button>
+                    <button class="tool-button" onclick="setTool('brush')">🖌️ Brush</button>
+                    <button class="tool-button" onclick="setTool('eraser')">🧽 Eraser</button>
+                    <input type="color" id="color-picker" onchange="changeColor(this.value)">
+                    <button class="tool-button" onclick="clearCanvas()">🧹 Clear</button>
+                    <button class="tool-button" onclick="addSticker('lion')">🦁 Lion</button>
+                    <button class="tool-button" onclick="addSticker('elephant')">🐘 Elephant</button>
+                    <button class="tool-button" onclick="addSticker('monkey')">🐵 Monkey</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Games Tab -->
+        <div id="games" class="tab-content">
+            <h2 class="section-title">Brain Games & Puzzles</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="startGame('memory')">
+                    <div class="module-icon">🧠</div>
+                    <h3 class="module-title">Memory Game</h3>
+                    <p class="module-description">Match pairs of animals and test your memory!</p>
+                </div>
+                <div class="module-card" onclick="startGame('sudoku')">
+                    <div class="module-icon">🔢</div>
+                    <h3 class="module-title">Kid's Sudoku</h3>
+                    <p class="module-description">Simple number puzzles for young minds.</p>
+                </div>
+                <div class="module-card" onclick="startGame('puzzle')">
+                    <div class="module-icon">🧩</div>
+                    <h3 class="module-title">Jigsaw Puzzles</h3>
+                    <p class="module-description">Drag and drop pieces to complete pictures.</p>
+                </div>
+                <div class="module-card" onclick="startGame('habitats')">
+                    <div class="module-icon">🌍</div>
+                    <h3 class="module-title">Animal Habitats</h3>
+                    <p class="module-description">Match animals to their homes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wellness Tab -->
+        <div id="wellness" class="tab-content">
+            <h2 class="section-title">Health & Wellness</h2>
+            <div class="module-grid">
+                <div class="module-card" onclick="startActivity('yoga')">
+                    <div class="module-icon">🧘‍♂️</div>
+                    <h3 class="module-title">Animal Yoga</h3>
+                    <p class="module-description">Fun exercises with animated animal instructors.</p>
+                </div>
+                <div class="module-card" onclick="startActivity('mindfulness')">
+                    <div class="module-icon">🌿</div>
+                    <h3 class="module-title">Mindfulness</h3>
+                    <p class="module-description">Guided breathing with nature sounds.</p>
+                </div>
+                <div class="module-card" onclick="startActivity('nutrition')">
+                    <div class="module-icon">🍎</div>
+                    <h3 class="module-title">Healthy Eating</h3>
+                    <p class="module-description">Fun food facts with cartoon veggies and fruits.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parental Controls Tab -->
+        <div id="parental" class="tab-content">
+            <h2 class="section-title">Parental Controls</h2>
+            <div class="parental-controls">
+                <form method="POST">
+                    <input type="hidden" name="parental_controls" value="1">
+                    <div class="control-group">
+                        <label for="screen_time">Screen Time Limit (minutes):</label>
+                        <input type="number" id="screen_time" name="screen_time" min="10" max="120" value="30">
+                    </div>
+                    <div class="control-group">
+                        <label for="content_filter">Content Filter Level:</label>
+                        <select id="content_filter" name="content_filter">
+                            <option value="high">High (Educational only)</option>
+                            <option value="medium" selected>Medium (Educational + Entertainment)</option>
+                            <option value="low">Low (All content)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <label>
+                            <input type="checkbox" name="safe_browsing" checked> Safe Browsing (Block ads/external links)
+                        </label>
+                    </div>
+                    <button type="submit">Save Settings</button>
+                </form>
+                
+                <?php if (isset($_POST['parental_controls'])): ?>
+                <div style="margin-top: 1rem; padding: 1rem; background-color: #e8f5e9; border-radius: 5px;">
+                    Settings saved successfully! Screen time limit set to <?php echo htmlspecialchars($_POST['screen_time']); ?> minutes.
+                </div>
+                <?php endif; ?>
+                
+                <div style="margin-top: 2rem;">
+                    <h3>Activity Report</h3>
+                    <p>View your child's learning progress and activities.</p>
+                    <button onclick="generateReport()">Generate Activity Report</button>
+                    <div id="report-output" style="margin-top: 1rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Section -->
+    <script>
+        // Tab navigation
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Module functions
+        function openModule(module) {
+            alert(`Opening ${module} module! This would launch the full interactive experience.`);
+            // In a real app, this would load the specific module content
+        }
+        
+        function playVideo(type) {
+            const videos = {
+                'cartoons': 'https://example.com/videos/cartoons',
+                'stories': 'https://example.com/videos/bedtime-stories',
+                'songs': 'https://example.com/videos/nursery-rhymes',
+                'crafts': 'https://example.com/videos/diy-crafts'
+            };
+            alert(`Playing ${type} video from ${videos[type]}`);
+            // In a real app, this would embed the video player
+        }
+        
+        function startGame(game) {
+            const games = {
+                'memory': 'Memory matching game with animals',
+                'sudoku': 'Simple 4x4 Sudoku with numbers',
+                'puzzle': 'Drag and drop jigsaw puzzle',
+                'habitats': 'Match animals to their habitats'
+            };
+            alert(`Starting ${game} game: ${games[game]}`);
+            // In a real app, this would launch the game
+        }
+        
+        function startActivity(activity) {
+            const activities = {
+                'yoga': 'Animal-themed yoga poses',
+                'mindfulness': 'Guided breathing exercise',
+                'nutrition': 'Learning about healthy foods'
+            };
+            alert(`Starting ${activity} activity: ${activities[activity]}`);
+            // In a real app, this would launch the activity
+        }
+        
+        // Drawing board functionality
+        let canvas, ctx;
+        let isDrawing = false;
+        let currentTool = 'pencil';
+        let currentColor = '#000000';
+        
+        function openDrawingBoard() {
+            document.getElementById('drawing-container').style.display = 'block';
+            
+            // Initialize canvas
+            canvas = document.getElementById('drawing-board');
+            ctx = canvas.getContext('2d');
+            
+            // Set canvas background to white
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Event listeners for drawing
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+        }
+        
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            
+            if (currentTool === 'pencil' || currentTool === 'brush') {
+                ctx.strokeStyle = currentColor;
+                ctx.lineWidth = currentTool === 'brush' ? 10 : 5;
+                
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            } else if (currentTool === 'eraser') {
+                ctx.strokeStyle = 'white';
+                ctx.lineWidth = 20;
+                
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(e.offsetX, e.offsetY);
+            }
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+        
+        function setTool(tool) {
+            currentTool = tool;
+        }
+        
+        function changeColor(color) {
+            currentColor = color;
+        }
+        
+        function clearCanvas() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        function addSticker(animal) {
+            const stickers = {
+                'lion': '🦁',
+                'elephant': '🐘',
+                'monkey': '🐵'
+            };
+            
+            // Get mouse position (simplified - would use actual click position in real app)
+            const x = Math.random() * (canvas.width - 50);
+            const y = Math.random() * (canvas.height - 50);
+            
+            ctx.font = '50px Arial';
+            ctx.fillText(stickers[animal], x, y);
+        }
+        
+        function openStoryMaker() {
+            alert('Opening story maker with drag-and-drop characters!');
+            // In a real app, this would launch the story maker interface
+        }
+        
+        // Parental controls
+        function generateReport() {
+            const reportOutput = document.getElementById('report-output');
+            reportOutput.innerHTML = `
+                <h4>Activity Report for Today</h4>
+                <ul>
+                    <li>Math Adventures: Completed 3 lessons</li>
+                    <li>Language Fun: Learned 10 new words</li>
+                    <li>Memory Game: Played for 15 minutes</li>
+                    <li>Animal Yoga: Completed 5 exercises</li>
+                </ul>
+                <p>Total screen time: 45 minutes</p>
+            `;
+        }
+        
+        // Screen time check
+        function checkScreenTime() {
+            // This would check with the PHP backend in a real app
+            setInterval(() => {
+                if (confirm('Your screen time is up! Would you like to take a break?')) {
+                    window.location.href = 'https://example.com/break-activities';
+                }
+            }, 1000 * 60 * 30); // Check every 30 minutes (for demo)
+        }
+        
+        // Initialize screen time check
+        window.onload = function() {
+            checkScreenTime();
+        };
+    </script>
+</body>
+</html>

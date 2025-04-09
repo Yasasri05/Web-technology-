@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Web App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 30px;
+        }
+        .menu-item-card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            height: 100%;
+        }
+        .menu-item-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .menu-item-img {
+            height: 200px;
+            object-fit: cover;
+        }
+        .category-tabs .nav-link {
+            color: #495057;
+            font-weight: 500;
+        }
+        .category-tabs .nav-link.active {
+            color: #dc3545;
+            background-color: transparent;
+            border-bottom: 2px solid #dc3545;
+        }
+        .cart-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Restaurant</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-page="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="reservations">Reservations</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-light me-2" id="loginBtn">Login</button>
+                    <button class="btn btn-danger" id="registerBtn">Register</button>
+                    <div id="userDropdown" class="dropdown" style="display: none;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+                            <span id="userGreeting"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#" data-page="orders">My Orders</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-primary position-relative ms-2" id="cartBtn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid p-0" id="main-content">
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <div class="hero-section text-center">
+                <h1 class="display-4">Welcome to Our Restaurant</h1>
+                <p class="lead">Experience the finest dining in town</p>
+                <div class="mt-4">
+                    <button class="btn btn-danger btn-lg me-2" data-page="menu">View Menu</button>
+                    <button class="btn btn-outline-light btn-lg" data-page="reservations">Book a Table</button>
+                </div>
+            </div>
+            
+            <div class="container my-5">
+                <h2 class="text-center mb-4">Our Specialties</h2>
+                <div class="row" id="featured-items">
+                    <!-- Featured items will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Page -->
+        <div id="menu-page" class="page" style="display: none;">
+            <div class="container my-5">
+                <h2 class="text-center mb-4">Our Menu</h2>
+                <ul class="nav nav-tabs category-tabs justify-content-center mb-4" id="categoryTabs">
+                    <!-- Categories will be loaded here -->
+                </ul>
+                
+                <div class="row" id="menu-items">
+                    <!-- Menu items will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservations Page -->
+        <div id="reservations-page" class="page" style="display: none;">
+            <div class="container my-5">
+                <h2 class="text-center mb-4">Book a Table</h2>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <form id="reservationForm">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="reservationDate" class="form-label">Date</label>
+                                            <input type="date" class="form-control" id="reservationDate" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="reservationTime" class="form-label">Time</label>
+                                            <input type="time" class="form-control" id="reservationTime" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="partySize" class="form-label">Party Size</label>
+                                        <select class="form-select" id="partySize" required>
+                                            <option value="1">1 person</option>
+                                            <option value="2">2 people</option>
+                                            <option value="3">3 people</option>
+                                            <option value="4">4 people</option>
+                                            <option value="5">5 people</option>
+                                            <option value="6">6 people</option>
+                                            <option value="7">7 people</option>
+                                            <option value="8">8 people</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="specialRequests" class="form-label">Special Requests</label>
+                                        <textarea class="form-control" id="specialRequests" rows="3"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Book Table</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="loginForm">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="loginEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">Login</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Register</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="registerForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="registerEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="registerUsername" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPhone" class="form-label">Phone</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+         </div>
+        </div>
+    </body>
+</html>   

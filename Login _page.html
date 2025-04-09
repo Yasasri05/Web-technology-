@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoksha</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(rgba(55, 15, 18, 0.7), rgba(25, 08, 25, 0.7)), 
+                        url('w.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .login-container {
+            background: #c2bdaf; /* Heathered Gray */
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 350px;
+            max-width: 90%;
+            border: 5px solid #592720; /* Caput Mortuum */
+        }
+        h2 {
+            color: #3E2F2F; /* Wood Bark */
+            font-size: 28px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #715C49; /* Pine Cone */
+            border-radius: 10px;
+            font-size: 16px;
+            background-color: #D1CBC5; /* Cloudy */
+            color: #3E2F2F;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border: 2px solid #592720; /* Caput Mortuum */
+            box-shadow: 0 0 8px rgba(89, 39, 32, 0.5);
+        }
+        button {
+            background: linear-gradient(45deg, #5A423B, #3E2F2F); /* Wood Bark */
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #8B5F4F, #592720); /* Caput Mortuum */
+            transform: scale(1.03);
+            box-shadow: 0 0 15px rgba(89, 39, 32, 0.5);
+        }
+        .signup-link {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #3E2F2F; /* Wood Bark */
+        }
+        .signup-link a {
+            color: #592720; /* Caput Mortuum */
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .signup-link a:hover {
+            color: #8B5F4F; /* Lighter Caput Mortuum */
+        }
+        p#message {
+            color: #3E2F2F;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        <h2>Yoksha Kids All In One</h2>
+        <input type="text" id="name" placeholder="Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="number" id="age" placeholder="Age" min="3" max="12">
+        <input type="password" id="password" placeholder="Password">
+        <a href="Final_project-1.html">
+            <button onclick="login()">Log In </button>
+        </a>
+        <p id="message"></p>
+        <p class="signup-link">Don't have an account? <a href="index.html">Sign up here</a></p>
+    </div>
+
+    <script>
+        function login() {
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var age = document.getElementById("age").value;
+            var password = document.getElementById("password").value;
+            
+            if (name.trim() !== "" && email.trim() !== "" && age.trim() !== "" && password.trim() !== "") {
+                alert("Welcome to Yoksha kids all in one, " + name + "! Let's have some fun!");
+                window.location.href = "kids_learning_world.html";
+            } else {
+                document.getElementById("message").innerText = "Please enter all details!";
+            }
+        }
+    </script>
+
+</body>
+</html>

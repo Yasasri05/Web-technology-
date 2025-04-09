@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoksha</title>
+    <style>
+        /* === Earthy Brown & Cream Color Scheme === */
+        :root {
+            --dark-brown: #3E2F2F;       /* Wood Bark */
+            --medium-brown: #592720;     /* Caput Mortuum */
+            --light-brown: #5A423B;      /* Dark Brown */
+            --warm-brown: #8B5F4F;       /* Lighter Brownish-Pink */
+            --cream-bg: #b7af9d;         /* Soft Cream */
+            --container-bg: #D1CBC5;     /* Cloudy Light Grayish Brown */
+            --border-color: #9c8a7a;     /* Pine Cone Muted Brown */
+            --text-dark: #786464;        /* Wood Bark */
+            --text-light: #F5F1E8;       /* Cream */
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            --success: #4caf50;
+            --error: #f44336;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(55, 15, 18, 0.7), rgba(25, 8, 25, 0.7)), 
+                        url('giraffe.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--medium-brown), var(--light-brown));
+            padding: 20px 0;
+            text-align: center;
+            color: var(--text-light);
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+        }
+
+        nav {
+            background: var(--light-brown);
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(199, 185, 189, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .container {
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: var(--container-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--border-color);
+            
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            
+        }
+
+        h2 {
+            color: var(--dark-brown);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 3px solid var(--medium-brown);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Cards */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            padding :15px;
+            gap : 50px;
+            text-align: center;
+        }
+
+        .card {
+            background: var(--cream-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .card-content {
+            padding: 20px;
+            align-items: center;
+        }
+        .card button {
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        .card h3 {
+            color: var(--medium-brown);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        button {
+            background: linear-gradient(to right, var(--light-brown), var(--light-brown));
+            color: var(--text-light);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: inline-block;
+            text-align: center;
+            border: 1px solid var(--light-brown);
+              text-align: center;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, var(--warm-brown), var(--medium-brown));
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Quiz Modal */
+        .quiz-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .quiz-content {
+            background-color: var(--cream-bg);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 2px solid var(--border-color);
+            
+        }
+
+        .close-quiz {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--medium-brown);
+            
+        }
+
+        .quiz-question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--medium-brown);
+            line-height: 1.4;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            background: var(--container-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .quiz-option:hover {
+            background: var(--cream-bg);
+            border-color: var(--medium-brown);
+        }
+
+        .quiz-feedback {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .correct {
+            background-color: #e6f7e6;
+            color: var(--success);
+            border-left: 5px solid var(--success);
+        }
+
+        .incorrect {
+            background-color: #ffebee;
+            color: var(--error);
+            border-left: 5px solid var(--error);
+        }
+
+        .quiz-progress {
+            text-align: center;
+            margin: 15px 0;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .quiz-next {
+            background: linear-gradient(to right, var(--light-brown), var(--medium-brown));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .quiz-next:hover {
+            background: linear-gradient(to right, var(--warm-brown), var(--medium-brown));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .quiz-result {
+            text-align: center;
+            font-size: 1.4rem;
+            margin: 20px 0;
+        }
+
+        .quiz-emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--light-brown), var(--medium-brown));
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Options Modal */
+        .options-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .options-content {
+            background-color: var(--cream-bg);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 2px solid var(--border-color);
+        }
+
+        .close-options {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--medium-brown);
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            background: var(--cream-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .option-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .option-card h4 {
+            padding: 15px;
+            color: var(--medium-brown);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .options-title {
+            color: var(--medium-brown);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        /* Drawing Board */
+        .drawing-board-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .drawing-board {
+            border: 2px solid var(--border-color);
+            background: var(--cream-bg);
+            cursor: crosshair;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .drawing-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .drawing-controls label {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        /* Video Player */
+        .video-player {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border-color);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--medium-brown), var(--light-brown));
+            color: var(--text-light);
+            text-align: center;
+            padding: 25px;
+            margin-top: 50px;
+            border-top: 2px solid var(--dark-brown);
+        }
+
+        /* Animation */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .bounce-animation {
+            animation: bounce 1s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 5px 0;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+                text-align: center;
+            }
+            
+            button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1> Welcome to Yoksha kids World</h1>
+        <p>Where Learning Meets Play!</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#learning">📚 Learning</a></li>
+            <li><a href="#entertainment">🎬 Entertainment</a></li>
+            <li><a href="#creativity">🎨 Creativity</a></li>
+            <li><a href="#games">🎮 Games</a></li>
+            <li><a href="#health">🏃 Health</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- Learning Section -->
+        <section id="learning" class="section">
+            <h2>📚 Interactive Learning</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="math.jpeg" alt="Math">
+                    <div class="card-content">
+                        <h3>Math Adventures</h3>
+                        <p>Learn numbers and basic math through fun games and challenges!</p>
+                        <button onclick="startQuiz('math')">Take Quiz</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="al.jpeg" alt="Alphabet">
+                    <div class="card-content">
+                        <h3>Alphabet World</h3>
+                        <p>Discover letters and words with interactive stories and songs.</p>
+                        <button onclick="startQuiz('alphabet')">Take Quiz</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="s.jpeg" alt="Science">
+                    <div class="card-content">
+                        <h3>Science Explorers</h3>
+                        <p>Fun experiments and amazing science facts for curious kids.</p>
+                        <button onclick="startQuiz('science')">Take Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Entertainment Section -->
+        <section id="entertainment" class="section">
+            <h2>🎬 Entertainment</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="dora.jpeg" alt="Cartoons">
+                    <div class="card-content">
+                        <h3>Kid's Cartoons</h3>
+                        <p>Watch fun and educational cartoons that teach while entertaining.</p>
+                        <button onclick="showVideo('cartoons')">Watch Now</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="story_m.jpeg" alt="Stories">
+                    <div class="card-content">
+                        <h3>Bedtime Stories</h3>
+                        <p>Listen to magical stories before sleep with beautiful illustrations.</p>
+                        <button onclick="showStories()">Read Stories</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="music.jpeg" alt="Music">
+                    <div class="card-content">
+                        <h3>Kids Music</h3>
+                        <p>Sing along with fun children's songs and nursery rhymes.</p>
+                        <button onclick="playMusic()">Play Music</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="videoContainer" style="display:none;">
+                <h3 style="margin-top: 20px;">Educational Video</h3>
+                <div class="video-player">
+                    <iframe id="videoPlayer" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Creativity Section -->
+        <section id="creativity" class="section">
+            <h2>🎨 Creativity Hub</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="art.jpeg" alt="Drawing">
+                    <div class="card-content">
+                        <h3>Art Class</h3>
+                        <p>Choose from different creative activities and tools!</p>
+                        <button onclick="showArtOptions()">Explore</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="story_m.jpeg" alt="Story Maker">
+                    <div class="card-content">
+                        <h3>Story Creator</h3>
+                        <p>Create your own stories with pictures and share them!</p>
+                        <button onclick="startStoryCreator()">Start Creating</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="craft.jpeg" alt="Crafts">
+                    <div class="card-content">
+                        <h3>DIY Crafts</h3>
+                        <p>Fun craft ideas with easy step-by-step tutorials.</p>
+                        <button onclick="showCrafts()">Explore Crafts</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Drawing Board (hidden by default) -->
+            <div id="drawingBoardContainer" style="display: none;">
+                <h3>Drawing Board</h3>
+                <div class="drawing-board-container">
+                    <div class="drawing-controls">
+                        <label for="colorPicker">Color:</label>
+                        <input type="color" id="colorPicker" value="#000000">
+                        
+                        <label for="brushSize">Size:</label>
+                        <input type="range" id="brushSize" min="1" max="20" value="5">
+                        
+                        <button onclick="clearCanvas()">Clear</button>
+                        <button onclick="saveDrawing()">Save</button>
+                    </div>
+                    <canvas id="drawingBoard" class="drawing-board" width="800" height="500"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Games Section -->
+        <section id="games" class="section">
+            <h2>🎮 Fun Games</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="puzzle.jpeg" alt="Puzzles">
+                    <div class="card-content">
+                        <h3>Puzzle Challenge</h3>
+                        <p>Solve fun puzzles and brain teasers of different levels.</p>
+                        <button onclick="startGame('puzzle')">Play Now</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="memory_g.jpeg" alt="Memory Game">
+                    <div class="card-content">
+                        <h3>Memory Match</h3>
+                        <p>Test your memory with this colorful matching game.</p>
+                        <button onclick="startGame('memory')">Play Now</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="ad.jpeg" alt="Adventure">
+                    <div class="card-content">
+                        <h3>Adventure Quest</h3>
+                        <p>Go on an exciting learning adventure with fun characters!</p>
+                        <button onclick="startGame('adventure')">Play Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Health Section -->
+        <section id="health" class="section">
+            <h2>🏃 Health & Wellness</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="exercise.jpeg" alt="Exercise">
+                    <div class="card-content">
+                        <h3>Kids Exercise</h3>
+                        <p>Fun exercises to stay active and healthy every day.</p>
+                        <button onclick="showExercises()">Get Moving</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="mind.jpeg" alt="Mindfulness">
+                    <div class="card-content">
+                        <h3>Mindfulness</h3>
+                        <p>Simple activities to help kids relax and focus.</p>
+                        <button onclick="showMindfulness()">Try Now</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="nut.jpeg" alt="Nutrition">
+                    <div class="card-content">
+                        <h3>Healthy Eating</h3>
+                        <p>Learn about nutritious foods in a fun interactive way.</p>
+                        <button onclick="showNutrition()">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>©️ 2025 Kids Fun World | Safe and Educational Content for Children</p>
+        <p>Parental Guidance Recommended | Made with ❤️ for kids</p>
+    </footer> 
+    <!-- Quiz Modal -->
+    <div id="quizModal" class="quiz-modal" style="display:none;">
+        <div class="quiz-content">
+            <span class="close-quiz" onclick="closeQuiz()">×</span>
+            <h2 id="quizTitle"></h2>
+            <div class="progress-bar">
+                <div class="progress" id="quizProgress"></div>
+            </div>
+            <div id="quizContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizzes = {
+            math: {
+                title: "Math Adventures Quiz",
+                questions: [
+                    {
+                        question: "What is 2 + 3?",
+                        options: ["4", "5", "6", "7"],
+                        answer: 1,
+                        feedback: "Great job! 2 + 3 equals 5."
+                    },
+                    {
+                        question: "How many sides does a triangle have?",
+                        options: ["2", "3", "4", "5"],
+                        answer: 1,
+                        feedback: "Correct! A triangle has 3 sides."
+                    },
+                    {
+                        question: "If you have 4 apples and give 1 to your friend, how many do you have left?",
+                        options: ["1", "2", "3", "4"],
+                        answer: 2,
+                        feedback: "Well done! 4 apples - 1 apple = 3 apples."
+                    },
+                    {
+                        question: "Which number comes after 9?",
+                        options: ["8", "9", "10", "11"],
+                        answer: 2,
+                        feedback: "Excellent! After 9 comes 10."
+                    },
+                    {
+                        question: "What is 5 - 2?",
+                        options: ["1", "2", "3", "4"],
+                        answer: 2,
+                        feedback: "Perfect! 5 - 2 equals 3."
+                    }
+                ]
+            },
+            alphabet: {
+                title: "Alphabet World Quiz",
+                questions: [
+                    {
+                        question: "Which letter comes after 'B'?",
+                        options: ["A", "B", "C", "D"],
+                        answer: 2,
+                        feedback: "That's right! After B comes C."
+                    },
+                    {
+                        question: "What is the first letter of the word 'apple'?",
+                        options: ["A", "E", "P", "L"],
+                        answer: 0,
+                        feedback: "Correct! Apple starts with A."
+                    },
+                    {
+                        question: "How many letters are in the word 'cat'?",
+                        options: ["1", "2", "3", "4"],
+                        answer: 2,
+                        feedback: "Great counting! C-A-T has 3 letters."
+                    },
+                    {
+                        question: "Which of these is a vowel?",
+                        options: ["B", "C", "E", "F"],
+                        answer: 2,
+                        feedback: "Yes! E is one of the vowels (A, E, I, O, U)."
+                    },
+                    {
+                        question: "What letter does 'elephant' start with?",
+                        options: ["A", "E", "I", "O"],
+                        answer: 1,
+                        feedback: "Well done! Elephant starts with E."
+                    }
+                ]
+            },
+            science: {
+                title: "Science Explorers Quiz",
+                questions: [
+                    {
+                        question: "What do plants need to grow?",
+                        options: ["Water", "Sunlight", "Air", "All of these"],
+                        answer: 3,
+                        feedback: "Excellent! Plants need water, sunlight, and air to grow."
+                    },
+                    {
+                        question: "Which animal says 'moo'?",
+                        options: ["Dog", "Cat", "Cow", "Sheep"],
+                        answer: 2,
+                        feedback: "That's right! Cows say 'moo'."
+                    },
+                    {
+                        question: "What color do you get when you mix blue and yellow?",
+                        options: ["Red", "Green", "Purple", "Orange"],
+                        answer: 1,
+                        feedback: "Correct! Blue and yellow make green."
+                    },
+                    {
+                        question: "What falls from the sky when it rains?",
+                        options: ["Snow", "Hail", "Raindrops", "Leaves"],
+                        answer: 2,
+                        feedback: "Yes! Raindrops fall from the sky when it rains."
+                    },
+                    {
+                        question: "Which of these is a planet?",
+                        options: ["Moon", "Sun", "Earth", "Star"],
+                        answer: 2,
+                        feedback: "Great job! Earth is our planet."
+                    }
+                ]
+            }
+        };
+
+        // Quiz State
+        let currentQuiz = null;
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let selectedOption = null;
+
+        // Start Quiz Function
+        function startQuiz(topic) {
+            currentQuiz = quizzes[topic];
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+            document.getElementById('quizModal').style.display = 'flex';
+            
+            showQuestion();
+        }
+
+        // Show Current Question
+        function showQuestion() {
+            const quizContainer = document.getElementById('quizContainer');
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex) / currentQuiz.questions.length) * 100;
+            
+            document.getElementById('quizProgress').style.width = `${progress}%`;
+            
+            let html = `
+                <div class="quiz-progress">Question ${currentQuestionIndex + 1} of ${currentQuiz.questions.length}</div>
+                <div class="quiz-question">${question.question}</div>
+            `;
+            
+            question.options.forEach((option, index) => {
+                html += `<button class="quiz-option" onclick="selectAnswer(${index})">${option}</button>`;
+            });
+            
+            quizContainer.innerHTML = html;
+            selectedOption = null;
+        }
+
+        // Select Answer
+        function selectAnswer(index) {
+            if (selectedOption !== null) return;
+            
+            selectedOption = index;
+            const question = currentQuiz.questions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const quizContainer = document.getElementById('quizContainer');
+            
+            options.forEach((option, i) => {
+                if (i === question.answer) {
+                    option.style.background = "linear-gradient(to right, #e6f7e6, #d4edda)";
+                    option.style.borderColor = "#4caf50";
+                } else if (i === index && i !== question.answer) {
+                    option.style.background = "linear-gradient(to right, #ffebee, #f8d7da)";
+                    option.style.borderColor = "#f44336";
+                }
+                option.style.pointerEvents = "none";
+            });
+            
+            if (index === question.answer) {
+                score++;
+                feedback = `<div class="quiz-feedback correct">${question.feedback}</div>`;
+            } else {
+                feedback = `<div class="quiz-feedback incorrect">${question.feedback}</div>`;
+            }
+            
+            setTimeout(() => {
+                quizContainer.innerHTML += feedback;
+                
+                if (currentQuestionIndex < currentQuiz.questions.length - 1) {
+                    quizContainer.innerHTML += `
+                        <button class="quiz-next" onclick="nextQuestion()">Next Question</button>
+                    `;
+                } else {
+                    showResults();
+                }
+            }, 1000);
+        }
+
+        // Next Question
+        function nextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        // Show Final Results
+        function showResults() {
+            const quizContainer = document.getElementById('quizContainer');
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+            
+            let emoji, message;
+            if (percentage >= 80) {
+                emoji = "🎉";
+                message = "Awesome job! You're a superstar!";
+            } else if (percentage >= 60) {
+                emoji = "👍";
+                message = "Good work! Keep practicing!";
+            } else {
+                emoji = "🤔";
+                message = "Nice try! You'll do better next time!";
+            }
+            
+            quizContainer.innerHTML = `
+                <div class="quiz-result">
+                    <div class="quiz-emoji">${emoji}</div>
+                    <div>You scored ${score} out of ${currentQuiz.questions.length}</div>
+                    <div>${message}</div>
+                </div>
+                <button class="quiz-next" onclick="closeQuiz()">Finish</button>
+            `;
+        }
+
+        // Close Quiz
+        function closeQuiz() {
+            document.getElementById('quizModal').style.display = 'none';
+        }
+
+        // Options Data
+        const contentOptions = {
+            cartoons: [
+                { title: "Colorful Adventures", thumb: "https://source.unsplash.com/random/300x200/?cartoon,colorful" },
+                { title: "Animal Friends", thumb: "https://source.unsplash.com/random/300x200/?cartoon,animals" },
+                { title: "Space Explorers", thumb: "https://source.unsplash.com/random/300x200/?cartoon,space" },
+                { title: "Underwater World", thumb: "https://source.unsplash.com/random/300x200/?cartoon,ocean" }
+            ],
+            stories: [
+                { title: "The Brave Little Turtle", thumb: "https://source.unsplash.com/random/300x200/?story,turtle" },
+                { title: "Magic Tree House", thumb: "https://source.unsplash.com/random/300x200/?story,treehouse" },
+                { title: "The Lost Puppy", thumb: "https://source.unsplash.com/random/300x200/?story,puppy" },
+                { title: "Princess and the Dragon", thumb: "https://source.unsplash.com/random/300x200/?story,dragon" }
+            ],
+            music: [
+                { title: "ABC Song", thumb: "https://source.unsplash.com/random/300x200/?music,alphabet" },
+                { title: "Counting Rhymes", thumb: "https://source.unsplash.com/random/300x200/?music,numbers" },
+                { title: "Animal Sounds", thumb: "https://source.unsplash.com/random/300x200/?music,animals" },
+                { title: "Bedtime Lullabies", thumb: "https://source.unsplash.com/random/300x200/?music,sleep" }
+            ],
+            art: [
+                { title: "Drawing Board", thumb: "https://source.unsplash.com/random/300x200/?drawing,board" },
+                { title: "Coloring Pages", thumb: "https://source.unsplash.com/random/300x200/?coloring,book" },
+                { title: "Digital Painting", thumb: "https://source.unsplash.com/random/300x200/?digital,art" }
+            ],
+            crafts: [
+                { title: "Paper Animals", thumb: "https://source.unsplash.com/random/300x200/?craft,paper" },
+                { title: "Recycled Art", thumb: "https://source.unsplash.com/random/300x200/?craft,recycle" },
+                { title: "Nature Collage", thumb: "https://source.unsplash.com/random/300x200/?craft,nature" },
+                { title: "DIY Instruments", thumb: "https://source.unsplash.com/random/300x200/?craft,music" }
+            ],
+            games: {
+                puzzle: [
+                    { title: "Jungle Puzzle", thumb: "https://source.unsplash.com/random/300x200/?puzzle,jungle" },
+                    { title: "Space Puzzle", thumb: "https://source.unsplash.com/random/300x200/?puzzle,space" },
+                    { title: "Animal Pairs", thumb: "https://source.unsplash.com/random/300x200/?puzzle,animals" }
+                ],
+                memory: [
+                    { title: "Color Match", thumb: "https://source.unsplash.com/random/300x200/?memory,colors" },
+                    { title: "Shape Match", thumb: "https://source.unsplash.com/random/300x200/?memory,shapes" },
+                    { title: "Animal Match", thumb: "https://source.unsplash.com/random/300x200/?memory,animals" }
+                ],
+                adventure: [
+                    { title: "Treasure Hunt", thumb: "https://source.unsplash.com/random/300x200/?adventure,treasure" },
+                    { title: "Space Journey", thumb: "https://source.unsplash.com/random/300x200/?adventure,space" },
+                    { title: "Dinosaur Land", thumb: "https://source.unsplash.com/random/300x200/?adventure,dinosaur" }
+                ]
+            },
+            exercises: [
+                { title: "Animal Moves", thumb: "https://source.unsplash.com/random/300x200/?exercise,animals" },
+                { title: "Yoga for Kids", thumb: "https://source.unsplash.com/random/300x200/?exercise,yoga" },
+                { title: "Dance Party", thumb: "https://source.unsplash.com/random/300x200/?exercise,dance" }
+            ],
+            mindfulness: [
+                { title: "Breathing Exercises", thumb: "https://source.unsplash.com/random/300x200/?mindfulness,breathing" },
+                { title: "Calming Stories", thumb: "https://source.unsplash.com/random/300x200/?mindfulness,story" },
+                { title: "Nature Sounds", thumb: "https://source.unsplash.com/random/300x200/?mindfulness,nature" }
+            ],
+            nutrition: [
+                { title: "Fruit Friends", thumb: "https://source.unsplash.com/random/300x200/?nutrition,fruit" },
+                { title: "Veggie Tales", thumb: "https://source.unsplash.com/random/300x200/?nutrition,vegetables" },
+                { title: "Healthy Habits", thumb: "https://source.unsplash.com/random/300x200/?nutrition,habits" }
+            ]
+        };
+
+        // Show Options Dialog
+        function showOptions(type, category = null) {
+            const modal = document.createElement('div');
+            modal.className = 'options-modal';
+            modal.innerHTML = `
+                <div class="options-content">
+                    <span class="close-options" onclick="this.parentElement.parentElement.remove()">×</span>
+                    <h3 class="options-title">Choose ${getCategoryName(type, category)}</h3>
+                    <div class="options-grid" id="optionsContainer"></div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            let options = [];
+            
+            if (category) {
+                options = contentOptions[type][category];
+            } else {
+                options = contentOptions[type];
+            }
+            
+            options.forEach(option => {
+                const optionCard = document.createElement('div');
+                optionCard.className = 'option-card';
+                optionCard.innerHTML = `
+                    <img src="${option.thumb}" alt="${option.title}">
+                    <h4>${option.title}</h4>
+                `;
+                optionCard.onclick = () => selectOption(option.title, type);
+                optionsContainer.appendChild(optionCard);
+            });
+        }
+
+        function getCategoryName(type, category) {
+            const names = {
+                cartoons: "a Cartoon",
+                stories: "a Story",
+                music: "a Song",
+                art: "an Art Activity",
+                crafts: "a Craft",
+                puzzle: "a Puzzle Game",
+                memory: "a Memory Game",
+                adventure: "an Adventure Game",
+                exercises: "an Exercise",
+                mindfulness: "a Mindfulness Activity",
+                nutrition: "a Nutrition Lesson"
+            };
+            
+            return category ? names[category] : names[type];
+        }
+
+        function selectOption(title, type) {
+            if (type === 'art' && title === 'Drawing Board') {
+                // Show the drawing board
+                document.querySelector('.options-modal').remove();
+                showDrawingBoard();
+                return;
+            }
+            
+            // For other options, show the alert and close modal
+            alert(`Loading ${title}...`);
+            document.querySelector('.options-modal').remove();
+            
+            // For videos, play the selected one
+            if (type === 'cartoons') {
+                showVideo('cartoons');
+            }
+        }
+
+        function showDrawingBoard() {
+            const drawingBoardContainer = document.getElementById('drawingBoardContainer');
+            drawingBoardContainer.style.display = 'block';
+            drawingBoardContainer.scrollIntoView({ behavior: 'smooth' });
+            
+            // Initialize drawing board
+            initDrawingBoard();
+        }
+
+        function initDrawingBoard() {
+            const canvas = document.getElementById('drawingBoard');
+            const ctx = canvas.getContext('2d');
+            const colorPicker = document.getElementById('colorPicker');
+            const brushSize = document.getElementById('brushSize');
+            
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+            
+            // Set initial drawing styles
+            ctx.strokeStyle = colorPicker.value;
+            ctx.lineWidth = brushSize.value;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            
+            // Event listeners for drawing
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // For touch devices
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+            
+            // Update drawing color when changed
+            colorPicker.addEventListener('input', function() {
+                ctx.strokeStyle = this.value;
+            });
+            
+            // Update brush size when changed
+            brushSize.addEventListener('input', function() {
+                ctx.lineWidth = this.value;
+            });
+            
+            function startDrawing(e) {
+                isDrawing = true;
+                [lastX, lastY] = getPosition(e);
+            }
+            
+            function draw(e) {
+                if (!isDrawing) return;
+                
+                const [x, y] = getPosition(e);
+                
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                
+                [lastX, lastY] = [x, y];
+            }
+            
+            function stopDrawing() {
+                isDrawing = false;
+            }
+            
+            function getPosition(e) {
+                const rect = canvas.getBoundingClientRect();
+                let x, y;
+                
+                if (e.type.includes('touch')) {
+                    x = e.touches[0].clientX - rect.left;
+                    y = e.touches[0].clientY - rect.top;
+                } else {
+                    x = e.clientX - rect.left;
+                    y = e.clientY - rect.top;
+                }
+                
+                return [x, y];
+            }
+            
+            function handleTouchStart(e) {
+                e.preventDefault();
+                startDrawing(e.touches[0]);
+            }
+            
+            function handleTouchMove(e) {
+                e.preventDefault();
+                draw(e.touches[0]);
+            }
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('drawingBoard');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveDrawing() {
+            const canvas = document.getElementById('drawingBoard');
+            const dataURL = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.download = 'kids-fun-world-drawing.png';
+            link.href = dataURL;
+            link.click();
+        }
+
+        function showArtOptions() {
+            showOptions('art');
+        }
+
+        function showVideo(type) {
+            const videoContainer = document.getElementById('videoContainer');
+            const videoPlayer = document.getElementById('videoPlayer');
+            
+            // Different videos based on category
+            let videoId = '';
+            switch(type) {
+                case 'cartoons':
+                    videoId = 'howHFAHl_vE'; 
+                    break;
+                default:
+                    videoId = 'ZAmxjF3h5zU'; 
+            }
+            
+            videoPlayer.src = `B_V.mp4`;
+            videoContainer.style.display = 'block';
+            videoContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStories() {
+            showOptions('stories');
+        }
+        
+        function playMusic() {
+            showOptions('music');
+        }
+        
+        function startStoryCreator() {
+            // This could show story creation options
+            showOptions('stories');
+        }
+        
+        function showCrafts() {
+            showOptions('crafts');
+        }
+        
+        function startGame(game) {
+            showOptions('games', game);
+        }
+        
+        function showExercises() {
+            showOptions('exercises');
+        }
+        
+        function showMindfulness() {
+            showOptions('mindfulness');
+        }
+        
+        function showNutrition() {
+            showOptions('nutrition');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('quizModal');
+            if (event.target == modal) {
+                closeQuiz();
+            }
+            
+            const optionsModal = document.querySelector('.options-modal');
+            if (event.target == optionsModal) {
+                optionsModal.remove();
+            }
+        }
+    </script>
+</body>
+</html>

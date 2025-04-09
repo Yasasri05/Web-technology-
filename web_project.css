@@ -1,0 +1,206 @@
+body {
+    font-family: 'Baloo 2', cursive;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    text-align: center;
+    color: #333;
+}
+.navbar {
+    background: linear-gradient(90deg, #FF6B6B, #8A4FFF);
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.navbar a:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.search-container {
+    margin: 20px auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.search-container input {
+    padding: 12px 20px;
+    width: 50%;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    font-family: 'Baloo 2', cursive;
+}
+.search-btn {
+    background: #4ECDC4;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.search-btn:hover {
+    background: #3aa79f;
+    transform: scale(1.05);
+}
+.header {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.header-image {
+    width: 100%; 
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+.section {
+    padding: 40px;
+    margin: 20px auto;
+    max-width: 1000px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+}
+.section h2 {
+    font-family: 'Fredoka One', cursive;
+    color: #4A4A4A;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+.age-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+.mickey-btn {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.mickey-btn::before,
+.mickey-btn::after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.8;
+}
+.mickey-btn::before {
+    top: -20px;
+    left: -20px;
+}
+.mickey-btn::after {
+    top: -20px;
+    right: -20px;
+}
+.mickey-btn .age-text {
+    position: relative;
+    z-index: 2;
+    font-size: 24px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-family: 'Fredoka One', cursive;
+}
+.mickey-btn:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.3);
+}
+.footer {
+    background: linear-gradient(90deg, #11998e, #38ef7d);
+    color: white;
+    padding: 30px 0 10px;
+    margin-top: 50px;
+    border-radius: 30px 30px 0 0;
+}
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.footer p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+.animal-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+}
+.animal-gallery img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid white;
+    transition: all 0.3s ease;
+}
+.animal-gallery img:hover {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+@media (max-width: 768px) {
+    .navbar {
+        gap: 10px;
+        padding: 10px;
+    }
+    .navbar a {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+    .search-container input {
+        width: 70%;
+    }
+    .age-buttons {
+        gap: 30px;
+    }
+    .mickey-btn {
+        width: 100px;
+        height: 100px;
+    }
+    .mickey-btn::before,
+    .mickey-btn::after {
+        width: 50px;
+        height: 50px;
+    }
+} 
